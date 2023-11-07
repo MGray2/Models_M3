@@ -48,12 +48,12 @@ class TestContact(TestCase):
 
         contacts = models.all_contacts()
 
-        self.assertEqual(len(contacts), len(contact_data))
+        self.assertEqual(len(contacts), len(contacts_data))
 
-        contact_data = sorted(contact_data, key=lambda c: c["name"])
+        contacts_data = sorted(contacts_data, key=lambda c: c["name"])
         contacts = sorted(contacts, key=lambda c: c.name)
 
-        for data, contact in zip(contact_data, contacts):
+        for data, contact in zip(contacts_data, contacts):
             self.assertEqual(data["name"], contact.name)
             self.assertEqual(data["email"], contact.email)
             self.assertEqual(data["phone"], contact.phone)
@@ -89,7 +89,7 @@ class TestContact(TestCase):
                 contact_data["is_favorite"],
             )
 
-        self.assertIsNone(len(models.find_contact_by_name("aousnth")))
+        self.assertIsNone(models.find_contact_by_name("aousnth"))
 
         contact = models.find_contact_by_name("Alma")
 
@@ -161,7 +161,7 @@ class TestContact(TestCase):
         models.update_contact_email("Elias", "big.e@example.com")
 
         self.assertEqual(
-            models.find_contact_by_name("Elais").email, "big.e@example.com"
+            models.find_contact_by_name("Elias").email, "big.e@example.com"
         )
 
     def test_can_delete_contact(self):
